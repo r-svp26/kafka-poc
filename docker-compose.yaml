@@ -26,6 +26,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
 
   connect:
     image: confluentinc/cp-kafka-connect:latest
@@ -37,7 +38,6 @@ services:
       - "8083:8083"
     volumes:
       - ./data:/tmp                      # for CSV input
-      - ./plugins:/usr/share/java/custom-plugins
     environment:
       CONNECT_BOOTSTRAP_SERVERS: kafka:9092
       CONNECT_REST_PORT: 8083
