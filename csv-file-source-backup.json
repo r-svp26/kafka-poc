@@ -1,14 +1,19 @@
-﻿{
-    "connector.class":  "org.apache.kafka.connect.file.FileStreamSourceConnector",
-    "key.converter.schemas.enable":  "false",
-    "file":  "/tmp/data/data.csv",
-    "transforms.addTimestamp.type":  "org.apache.kafka.connect.transforms.InsertField$Value",
-    "tasks.max":  "1",
-    "transforms":  "addTimestamp",
-    "value.converter.schemas.enable":  "true",
-    "name":  "csv-file-source",
-    "topic":  "csv-topic",
-    "value.converter":  "org.apache.kafka.connect.json.JsonConverter",
-    "key.converter":  "org.apache.kafka.connect.json.JsonConverter",
-    "transforms.addTimestamp.timestamp.field":  "processing_timestamp"
-}
+﻿Invoke-RestMethod -Uri "http://localhost:8083/connectors" `
+  -Method POST `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{
+    "name": "csv-file-source",
+    "config": {
+      "connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+      "tasks.max": "1",
+      "file": "/tmp/data/data.csv",
+      "topic": "csv-topic",
+      "transforms": "addTimestamp",
+      "transforms.addTimestamp.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+      "transforms.addTimestamp.timestamp.field": "processing_timestamp",
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": "false",
+      "value.converter.schemas.enable": "true"
+    }
+  }'
