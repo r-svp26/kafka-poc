@@ -1,0 +1,14 @@
+﻿{
+    "connector.class":  "org.apache.kafka.connect.file.FileStreamSourceConnector",
+    "key.converter.schemas.enable":  "false",
+    "file":  "/tmp/data/data.csv",
+    "transforms.addTimestamp.type":  "org.apache.kafka.connect.transforms.InsertField$Value",
+    "tasks.max":  "1",
+    "transforms":  "addTimestamp",
+    "value.converter.schemas.enable":  "true",
+    "name":  "csv-file-source",
+    "topic":  "csv-topic",
+    "value.converter":  "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter":  "org.apache.kafka.connect.json.JsonConverter",
+    "transforms.addTimestamp.timestamp.field":  "processing_timestamp"
+}
